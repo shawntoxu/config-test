@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+    <!-- Console Appender, used to all log. -->
+    <appender name="console" class="org.apache.log4j.ConsoleAppender">
+        <param name="Target" value="System.out" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern"
+                value="[log4j] %d{yyyy-MM-dd HH:mm:ss,SSS} %p [%t] %c.%M-%L | %m%n" />
+        </layout>
+    </appender>
+    
+    <!-- File Appender, used to record debug & info log. -->
+    <appender name="debugAppender" class="org.apache.log4j.RollingFileAppender">
+        <param name="File" value="E:\\log\\debug.log" />
+        <param name="Append" value="true" />
+        <param name="MaxFileSize" value="500KB" />
+        <param name="MaxBackupIndex" value="2" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" 
+                value="%c %d{ISO8601} [%p] -- %m%n" />
+        </layout>
+        <!-- Only log DEBUG & INFO msg -->
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="LevelMin" value="DEBUG" />
+            <param name="LevelMax" value="DEBUG" />
+        </filter>
+    </appender>
+    
+    <appender name="infoAppender" class="org.apache.log4j.DailyRollingFileAppender">     
+        <param name="File" value="E:\\log\\info.log" />       
+        <param name="DatePattern" value="'.'yyyy-MM-dd'.log'" />       
+        <layout class="org.apache.log4j.PatternLayout">     
+         <param name="ConversionPattern"       
+            value="[%d{MMdd HH:mm:ss SSS\} %-5p] [%t] %c{3\} - %m%n" />
+        </layout>       
+        
+          <!-- Only log info msg -->
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="LevelMin" value="INFO" />
+            <param name="LevelMax" value="INFO" />
+        </filter>
+    </appender>
+    
+    <appender name="errorAppender" class="org.apache.log4j.DailyRollingFileAppender">     
+        <param name="File" value="E:\\log\\error.log" />       
+        <param name="DatePattern" value="'.'yyyy-MM-dd'.log'" />       
+        <layout class="org.apache.log4j.PatternLayout">     
+         <param name="ConversionPattern"       
+            value="[%d{MMdd HH:mm:ss SSS\} %-5p] [%t] %c{3\} - %m%n" />
+        </layout>       
+        
+          <!-- Only log warn and error msg -->
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="LevelMin" value="WARN" />
+            <param name="LevelMax" value="FATAL" />
+        </filter>
+    </appender>
+    
+
+    <!--  配置log4j应用的目标包. 
+    <logger name="com.d">
+        <level value="INFO" />
+        <appender-ref ref="console" />
+    </logger-->
+
+
+   <!--配置log4j 全局的appender，appender中的日志级别高于这里配置的日志级别-->
+    <root>
+        <priority value="DEBUG" />
+        <appender-ref ref="console" />
+        <appender-ref ref="debugAppender" />
+        <appender-ref ref="infoAppender" />
+        <appender-ref ref="errorAppender" />
+    </root>
+</log4j:configuration>
