@@ -11,7 +11,7 @@
         </layout>
     </appender>
     
-    <!-- File Appender, used to record debug & info log. -->
+    <!-- File Appender, used to record debug, when log size > 500KB &&　new log will be created.  -->
     <appender name="debugAppender" class="org.apache.log4j.RollingFileAppender">
         <param name="File" value="E:\\log\\debug.log" />
         <param name="Append" value="true" />
@@ -21,7 +21,7 @@
             <param name="ConversionPattern" 
                 value="%c %d{ISO8601} [%p] -- %m%n" />
         </layout>
-        <!-- Only log DEBUG & INFO msg -->
+        <!-- Only log DEBUG msg -->
         <filter class="org.apache.log4j.varia.LevelRangeFilter">
             <param name="LevelMin" value="DEBUG" />
             <param name="LevelMax" value="DEBUG" />
@@ -51,7 +51,7 @@
             value="[%d{MMdd HH:mm:ss SSS\} %-5p] [%t] %c{3\} - %m%n" />
         </layout>       
         
-          <!-- Only log warn and error msg -->
+          <!-- Only log warn and error and fatal  msg -->
         <filter class="org.apache.log4j.varia.LevelRangeFilter">
             <param name="LevelMin" value="WARN" />
             <param name="LevelMax" value="FATAL" />
